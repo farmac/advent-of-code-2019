@@ -6,15 +6,19 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class FuelCalculator {
-    public static int calculateRequiredFuel(int mass) {
+    public static int calculateRequiredFuelFirstStage(int mass) {
+        return mass / 3 - 2;
+    }
+    
+    public static int calculateRequiredFuelSecondStage(int mass) {
         if(mass >= 9) {
-            return mass / 3 - 2 + calculateRequiredFuel(mass / 3 - 2);
+            return mass / 3 - 2 + calculateRequiredFuelSecondStage(mass / 3 - 2);
         } else {
             return 0;
         }
     }
     
-    public static int parseData(String input) {
+    public static int parseData(String input, int stage) {
         int totalFuel = 0;
         
         try (BufferedReader br = new BufferedReader(new FileReader(input))) {
@@ -22,9 +26,15 @@ public class FuelCalculator {
             while ((line = br.readLine()) != null) {
                 int fuel;
                 try {
-                    fuel = calculateRequiredFuel(Integer.parseInt(line));
+                    if(stage == 1) {
+                        fuel = calculateRequiredFuelFirstStage(Integer.parseInt(line));
+                    } else if(stage == 2) {
+                        fuel = calculateRequiredFuelSecondStage(Integer.parseInt(line));
+                    } else {
+                        throw new IllegalArgumentException();
+                    }
                 } catch (IllegalArgumentException e) {
-                    throw new IllegalArgumentException("Malformed format.");
+                    throw new IllegalArgumentException("Malformed format or wrong stage number.");
                 }
                 totalFuel += fuel;
             }
