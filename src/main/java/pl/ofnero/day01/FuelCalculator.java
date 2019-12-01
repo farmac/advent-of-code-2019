@@ -6,31 +6,13 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class FuelCalculator {
-    // Part 1
     public static int calculateRequiredFuel(int mass) {
-        return mass / 3 - 2;
-    }
-    
-    // Part 2
-    public static int calculateRequiredFuelIncludingAdditionalFuel(String mass) {
-        int requiredFuel = 0;
-        int massOfModule;
-        try {
-            massOfModule = Integer.parseInt(mass);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Malformed format!");
+        if(mass >= 9) {
+            return mass / 3 - 2 + calculateRequiredFuel(mass / 3 - 2);
+        } else {
+            return 0;
         }
-        
-        while (massOfModule >= 9) {
-            int fuel = calculateRequiredFuel(massOfModule);
-            requiredFuel += fuel;
-            massOfModule = fuel;
-        }
-        
-        return requiredFuel;
     }
-    
-    
     
     public static int parseData(String input) {
         int totalFuel = 0;
@@ -38,8 +20,13 @@ public class FuelCalculator {
         try (BufferedReader br = new BufferedReader(new FileReader(input))) {
             String line;
             while ((line = br.readLine()) != null) {
-                    int fuel = calculateRequiredFuelIncludingAdditionalFuel(line);
-                    totalFuel += fuel;
+                int fuel;
+                try {
+                    fuel = calculateRequiredFuel(Integer.parseInt(line));
+                } catch (IllegalArgumentException e) {
+                    throw new IllegalArgumentException("Malformed format.");
+                }
+                totalFuel += fuel;
             }
         } catch (FileNotFoundException e) {
             throw new IllegalArgumentException("File " + input + " has not been found.");
@@ -47,12 +34,6 @@ public class FuelCalculator {
             System.out.println("Input / output error occured.");
             System.exit(0);
         }
-        
         return totalFuel;
-    }
-    
-    public static void main(String[] args) {
-        int totalRequiredFuel = parseData("day01input.txt");
-        System.out.println(totalRequiredFuel);
     }
 }
