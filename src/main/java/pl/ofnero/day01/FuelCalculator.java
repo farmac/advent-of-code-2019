@@ -33,7 +33,7 @@ public class FuelCalculator {
                     } else {
                         throw new IllegalArgumentException();
                     }
-                } catch (IllegalArgumentException e) {
+                } catch (NumberFormatException e) {
                     throw new IllegalArgumentException("Malformed format or wrong stage number.");
                 }
                 totalFuel += fuel;
