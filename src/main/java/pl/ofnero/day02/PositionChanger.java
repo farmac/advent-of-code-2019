@@ -1,11 +1,5 @@
 package pl.ofnero.day02;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Arrays;
-
 public class PositionChanger {
     public static void process(int[] array) {
         for (int i = 0; i < array.length - 4; i += 4) {
@@ -23,20 +17,10 @@ public class PositionChanger {
         }
     }
     
-    public static int[] loadCode(String fileName) {
-        String[] tokens = null;
-        
-        try(BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            tokens = reader.readLine().split(",");
-        } catch (FileNotFoundException e) {
-            throw new IllegalArgumentException("File " + fileName + " has not been found.");
-        } catch (IOException e) {
-            System.out.println("Input / output error occured.");
-            System.exit(0);
-        }
-    
-        return Arrays.stream(tokens)
-                .mapToInt(Integer::parseInt)
-                .toArray();
+    public static int getValueFromIndexZero(int[] array, int noun, int verb) {
+        array[1] = noun;
+        array[2] = verb;
+        process(array);
+        return array[0];
     }
 }
