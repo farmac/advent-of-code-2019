@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class PositionChanger {
     public static void process(int[] array) {
@@ -22,7 +23,7 @@ public class PositionChanger {
         }
     }
     
-    public static String[] loadCode(String fileName) {
+    public static int[] loadCode(String fileName) {
         String[] tokens = null;
         
         try(BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -34,6 +35,8 @@ public class PositionChanger {
             System.exit(0);
         }
     
-        return tokens;
+        return Arrays.stream(tokens)
+                .mapToInt(Integer::parseInt)
+                .toArray();
     }
 }
