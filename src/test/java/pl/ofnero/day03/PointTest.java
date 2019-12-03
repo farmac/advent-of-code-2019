@@ -11,9 +11,10 @@ class PointTest {
     
     @Test
     void shouldBeAbleToMove() {
-        Point.makeMoves(point1, new String[]{"R21", "U31", "L15", "D5"});
-        Point.makeMoves(point2, new String[]{"R8", "U5", "L5", "D3"});
-        Point.makeMoves(point3, new String[]{"U7", "R6", "D4", "L4"});
+        point1.makeMoves(new String[]{"R21", "U31", "L15", "D5"});
+        point2.makeMoves(new String[]{"R8", "U5", "L5", "D3"});
+        point3.makeMoves(new String[]{"U7", "R6", "D4", "L4"});
+        
         assertEquals(6, point1.getX());
         assertEquals(26, point1.getY());
         

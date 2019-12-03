@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,11 +11,9 @@ public class Main {
         String[] moves = parseInput(fileName);
         Point point1 = new Point(0, 0);
         Point point2 = new Point(0, 0);
-        Point.makeMoves(point1, moves[0].split(","));
-        Point.makeMoves(point2, moves[1].split(","));
-        Set<Point> intersectionPoint = Calculator.getAllIntersectionPoints(point1, point2);
-        System.out.println(Calculator.calculateDistance(intersectionPoint));
-     
+        point1.makeMoves(moves[0].split(","));
+        point2.makeMoves(moves[1].split(","));
+        System.out.println(Calculator.calculateStepsToTheClosestInterceptionPoint(point1, point2));
     }
     
     public static String[] parseInput(String fileName) {

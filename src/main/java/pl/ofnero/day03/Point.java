@@ -1,50 +1,81 @@
 package pl.ofnero.day03;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Point {
     private int x;
     private int y;
-    private Set<Point> pointSet = new HashSet<>();
-    private static final Pattern PATTERN = Pattern.compile("(\\w)(\\d+)");
-    
+    private Set<Point> pointSet = new LinkedHashSet<>();
+    private Map<Point, Integer> map = new HashMap<>();
+    private Integer steps = 0;
+    private final Pattern PATTERN = Pattern.compile("(\\w)(\\d+)");
     
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
     }
     
+    public int getX() {
+        return x;
+    }
     
-    public static void makeMoves(Point point, String[] moves) {
-        for(String move: moves) {
+    public int getY() {
+        return y;
+    }
+    
+    public Map<Point, Integer> getMap() {
+        return map;
+    }
+    
+    public Set<Point> getPointSet() {
+        return pointSet;
+    }
+    
+    public void makeMoves(String[] moves) {
+        for (String move : moves) {
             Matcher matcher = PATTERN.matcher(move);
+            //noinspection ResultOfMethodCallIgnored
             matcher.find();
             String direction = matcher.group(1);
             int distance = Integer.parseInt(matcher.group(2));
             
             switch (direction) {
                 case "U":
-                    point.moveUp(distance);
+                    for (int i = 0; i < distance; i++) {
+                        y += 1;
+                        putPointsToCollection(new Point(x, y));
+                    }
                     break;
                 case "D":
-                    point.moveDown(distance);
+                    for (int i = 0; i < distance; i++) {
+                        y -= 1;
+                        putPointsToCollection(new Point(x, y));
+                    }
                     break;
                 case "L":
-                    point.moveLeft(distance);
+                    for (int i = 0; i < distance; i++) {
+                        x -= 1;
+                        putPointsToCollection(new Point(x, y));
+                    }
                     break;
                 case "R":
-                    point.moveRight(distance);
+                    for (int i = 0; i < distance; i++) {
+                        x += 1;
+                        putPointsToCollection(new Point(x, y));
+                    }
                     break;
             }
-            
         }
     }
-    public Set<Point> getPointSet() {
-        return pointSet;
+    
+    private void putPointsToCollection(Point p) {
+        steps++;
+        pointSet.add(p);
+        if (!map.containsKey(p)) {
+            map.put(p, steps);
+        }
     }
     
     @Override
@@ -61,39 +92,7 @@ public class Point {
         return Objects.hash(x, y);
     }
     
-    public void moveLeft(int distance) {
-        for (int i = 0; i < distance; i++) {
-            x -= 1;
-            pointSet.add(new Point(x, y));
-        }
-    }
-    
-    public void moveRight(int distance) {
-        for (int i = 0; i < distance; i++) {
-            x += 1;
-            pointSet.add(new Point(x, y));
-        }
-    }
-    
-    public void moveUp(int distance) {
-        for (int i = 0; i < distance; i++) {
-            y += 1;
-            pointSet.add(new Point(x, y));
-        }
-    }
-    
-    public void moveDown(int distance) {
-        for (int i = 0; i < distance; i++) {
-            y -= 1;
-            pointSet.add(new Point(x, y));
-        }
-    }
-    
-    public int getX() {
-        return x;
-    }
-    
-    public int getY() {
-        return y;
+    public String toString() {
+        return String.format("%d:%d", x, y);
     }
 }
