@@ -3,17 +3,46 @@ package pl.ofnero.day03;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Point {
     private int x;
     private int y;
     private Set<Point> pointSet = new HashSet<>();
+    private static final Pattern PATTERN = Pattern.compile("(\\w)(\\d+)");
+    
     
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
     }
     
+    
+    public static void makeMoves(Point point, String[] moves) {
+        for(String move: moves) {
+            Matcher matcher = PATTERN.matcher(move);
+            matcher.find();
+            String direction = matcher.group(1);
+            int distance = Integer.parseInt(matcher.group(2));
+            
+            switch (direction) {
+                case "U":
+                    point.moveUp(distance);
+                    break;
+                case "D":
+                    point.moveDown(distance);
+                    break;
+                case "L":
+                    point.moveLeft(distance);
+                    break;
+                case "R":
+                    point.moveRight(distance);
+                    break;
+            }
+            
+        }
+    }
     public Set<Point> getPointSet() {
         return pointSet;
     }

@@ -12,10 +12,10 @@ public class Main {
         String[] moves = parseInput(fileName);
         Point point1 = new Point(0, 0);
         Point point2 = new Point(0, 0);
-        Mover.makeMoves(point1, moves[0].split(","));
-        Mover.makeMoves(point2, moves[1].split(","));
-        Set<Point> intersectionPoint = Mover.getAllIntersectionPoints(point1, point2);
-        System.out.println(Mover.calculateDistance(intersectionPoint));
+        Point.makeMoves(point1, moves[0].split(","));
+        Point.makeMoves(point2, moves[1].split(","));
+        Set<Point> intersectionPoint = Calculator.getAllIntersectionPoints(point1, point2);
+        System.out.println(Calculator.calculateDistance(intersectionPoint));
      
     }
     
