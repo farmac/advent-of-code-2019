@@ -13,7 +13,7 @@ class IntcodeComputerTest {
     }
     
     @Test
-    void shouldCorrectlyChangePositionsInMultimodeSystem() {
+    void shouldCorrectlyChangePositionsWithParametersIncluded() {
         int[] program = {1002,4,3,4,33};
         IntcodeComputer.process(program, 1);
         
