@@ -1,7 +1,4 @@
-# Advent of Code 2019
-
-https://adventofcode.com/2019
-
+## Advent of Code 2019
 
 1. [Day 1: The Tyranny of the Rocket Equation](https://adventofcode.com/2019/day/1)
 2. [Day 2: 1202 Program Alarm](https://adventofcode.com/2019/day/2)
