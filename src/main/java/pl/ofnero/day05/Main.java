@@ -7,12 +7,13 @@ import java.io.IOException;
 import java.util.Arrays;
 
 /*
-  * In order to calculate a diagnostic code for the first part of puzzle, one has to remove or comment out switch cases
-  * from 5 to 8 and change the input to 1.
-*/
+ * In order to calculate a diagnostic code for the first part of puzzle, one has to remove or comment out switch cases
+ * from 5 to 8 and change the input to 1.
+ */
 
 public class Main {
     private static final int INPUT = 5;
+    
     public static void main(String[] args) {
         int[] diagnosticProgram = getDiagnosticProgram("./inputs/day05input.txt");
         
