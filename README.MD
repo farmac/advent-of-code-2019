@@ -5,5 +5,6 @@
 3. [Day 3: Crossed Wires](https://adventofcode.com/2019/day/3)
 4. [Day 4: Secure Container](https://adventofcode.com/2019/day/4)
 5. [Day 5: Sunny with a Chance of Asteroids](https://adventofcode.com/2019/day/5)
+6. [Day 6: Universal Orbit Map](https://adventofcode.com/2019/day/6)
 
 

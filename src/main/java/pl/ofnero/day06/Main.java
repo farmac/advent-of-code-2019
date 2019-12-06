@@ -7,8 +7,11 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-        int count = OrbitChecker.countOrbits(getOrbits("./inputs/day06input.txt"));
+        String fileName = "./inputs/day06input.txt";
+        int count = OrbitChecker.countOrbits(getOrbits(fileName));
+        int steps = OrbitChecker.calculateMinimumNumberOfSteps(getOrbits(fileName));
         System.out.println(count);
+        System.out.println(steps);
     
     }
     
