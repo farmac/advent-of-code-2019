@@ -13,6 +13,7 @@ public class Main {
         Decoder decoder = new Decoder();
         int value = decoder.calculateFinalOutput(decoder.getLayerWithLeast0Digits(decoder.getLayers(getCode(), WIDTH, HEIGHT)));
         System.out.println(value);
+        decoder.printImage(decoder.getFullImage(decoder.getLayers(getCode(), WIDTH, HEIGHT), WIDTH, HEIGHT), WIDTH);
     }
     
     private static String getCode() {
