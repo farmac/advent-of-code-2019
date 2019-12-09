@@ -8,3 +8,4 @@
 6. [Day 6: Universal Orbit Map](https://adventofcode.com/2019/day/6)
 7. [Day 7: Amplification Circuit](https://adventofcode.com/2019/day/7)
 8. [Day 8: Space Image Format](https://adventofcode.com/2019/day/8)
+9. [Day 9: Sensor Boost](https://adventofcode.com/2019/day/9)
