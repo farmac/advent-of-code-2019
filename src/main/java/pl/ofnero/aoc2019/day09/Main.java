@@ -9,6 +9,7 @@ import java.util.Arrays;
 
 public class Main {
     private static final int INPUT = 1;
+    private static final int INPUT_PART_TWO = 2;
     
     public static void main(String[] args) {
         long[] main = getDiagnosticProgram("./inputs/day09input.txt");
@@ -16,6 +17,7 @@ public class Main {
         Arrays.fill(diagnosticProgram , 0);
         System.arraycopy(main, 0, diagnosticProgram, 0, main.length);
         Computer.process(diagnosticProgram, INPUT);
+        Computer.process(diagnosticProgram, INPUT_PART_TWO);
     }
     
     public static long[] getDiagnosticProgram(String fileName) {
