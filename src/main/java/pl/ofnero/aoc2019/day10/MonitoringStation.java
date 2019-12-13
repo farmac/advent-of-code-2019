@@ -16,7 +16,7 @@ public class MonitoringStation {
         this.mapOfSpace = mapOfSpace;
     }
     
-    private class Position implements Comparable<Position> {
+    private static class Position {
         private int x2;
         private int y2;
         
@@ -33,19 +33,6 @@ public class MonitoringStation {
             return y2;
         }
         
-        @Override
-        public String toString() {
-            return "Position{" +
-                    "x=" + x2 +
-                    ", y=" + y2 +
-                    '}';
-        }
-        
-        @Override
-        public int compareTo(Position position) {
-            return (int) (Math.sqrt(Math.pow(x2 - x, 2) + Math.pow(y2 - y, 2))
-                    - Math.sqrt(Math.pow(position.getX() - x, 2) + Math.pow(position.getY() - y, 2)));
-        }
     }
     
     public int detectAsteroidsAtGivenPosition(int x, int y) {
@@ -120,50 +107,49 @@ public class MonitoringStation {
     
     public int get200thAsteroidToBeVaporized() {
         setupQuarters();
-        sortLists();
         int i = 2;
         while (i <= 200) {
             for (Double trajectory : firstQuarterPoints.keySet()) {
-                if(firstQuarterPoints.get(trajectory).size() == 0) {
+                if (firstQuarterPoints.get(trajectory).size() == 0) {
                     continue;
                 }
                 Position pos = firstQuarterPoints.get(trajectory).get(0);
                 firstQuarterPoints.get(trajectory).remove(pos);
-                if(i == 200) {
+                if (i == 200) {
                     return pos.getX() * 100 + pos.getY();
                 }
                 i++;
                 
             }
             for (Double trajectory : fourthQuarterPoints.keySet()) {
-                if(fourthQuarterPoints.get(trajectory).size() == 0) {
+                if (fourthQuarterPoints.get(trajectory).size() == 0) {
                     continue;
                 }
                 Position pos = fourthQuarterPoints.get(trajectory).get(0);
                 fourthQuarterPoints.get(trajectory).remove(pos);
-                if(i == 200) {
+                if (i == 200) {
                     return pos.getX() * 100 + pos.getY();
                 }
                 i++;
             }
             for (Double trajectory : thirdQuarterPoints.keySet()) {
-                if(thirdQuarterPoints.get(trajectory).size() == 0) {
+                if (thirdQuarterPoints.get(trajectory).size() == 0) {
                     continue;
                 }
                 Position pos = thirdQuarterPoints.get(trajectory).get(0);
                 thirdQuarterPoints.get(trajectory).remove(pos);
-                if(i == 200) {
+                if (i == 200) {
                     return pos.getX() * 100 + pos.getY();
                 }
                 i++;
             }
             for (Double trajectory : secondQuarterPoints.keySet()) {
-                if(secondQuarterPoints.get(trajectory).size() == 0) {
+                if (secondQuarterPoints.get(trajectory).size() == 0) {
                     continue;
                 }
                 Position pos = secondQuarterPoints.get(trajectory).get(0);
                 secondQuarterPoints.get(trajectory).remove(pos);
-                if(i == 200) {
+                if (i == 200) {
                     return pos.getX() * 100 + pos.getY();
                 }
                 i++;
@@ -172,18 +158,5 @@ public class MonitoringStation {
         return 0;
     }
     
-    private void sortLists() {
-        for (List<Position> list : firstQuarterPoints.values()) {
-            list.sort(Position::compareTo);
-        }
-        for (List<Position> list : secondQuarterPoints.values()) {
-            list.sort(Position::compareTo);
-        }
-        for (List<Position> list : secondQuarterPoints.values()) {
-            list.sort(Position::compareTo);
-        }
-        for (List<Position> list : secondQuarterPoints.values()) {
-            list.sort(Position::compareTo);
-        }
-    }
 }
+
