@@ -9,8 +9,8 @@ public class Main {
     public static void main(String[] args) {
         String fileName = "./inputs/day03input.txt";
         String[] moves = parseInput(fileName);
-        Point point1 = new Point(0, 0);
-        Point point2 = new Point(0, 0);
+        Position point1 = new Position(0, 0);
+        Position point2 = new Position(0, 0);
         point1.makeMoves(moves[0].split(","));
         point2.makeMoves(moves[1].split(","));
         System.out.println(Calculator.calculateStepsToTheClosestInterceptionPoint(point1, point2));

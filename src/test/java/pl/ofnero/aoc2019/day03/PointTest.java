@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PointTest {
-    private Point point1 = new Point(0, 0);
-    private Point point2 = new Point(0, 0);
-    private Point point3 = new Point(0, 0);
+    private Position point1 = new Position(0, 0);
+    private Position point2 = new Position(0, 0);
+    private Position point3 = new Position(0, 0);
     
     @Test
     void shouldBeAbleToMove() {

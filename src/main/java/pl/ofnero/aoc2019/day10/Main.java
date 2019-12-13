@@ -6,17 +6,23 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Main {
     private static final String fileName = "./inputs/day10input.txt";
+    //private static final String fileName = "test";
     
     public static void main(String[] args) {
         
         List<List<Character>> map = parseInput();
         MonitoringStation monitoringStation = new MonitoringStation(map);
-        System.out.println(monitoringStation.getNumberOfAsteroidsDetectedAtFoundLocation());
+        monitoringStation.detectAsteroidsAtGivenPosition(22, 19);
+        monitoringStation.get200thAsteroidToBeVaporized();
+        
+    
+        
     }
     
     private static List<List<Character>> parseInput() {

@@ -4,15 +4,15 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Point {
+public class Position {
     private int x;
     private int y;
-    private Set<Point> pointSet = new LinkedHashSet<>();
-    private Map<Point, Integer> map = new HashMap<>();
+    private Set<Position> pointSet = new LinkedHashSet<>();
+    private Map<Position, Integer> map = new HashMap<>();
     private Integer steps = 0;
     private final Pattern PATTERN = Pattern.compile("(\\w)(\\d+)");
     
-    public Point(int x, int y) {
+    public Position(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -25,11 +25,11 @@ public class Point {
         return y;
     }
     
-    public Map<Point, Integer> getMap() {
+    public Map<Position, Integer> getMap() {
         return map;
     }
     
-    public Set<Point> getPointSet() {
+    public Set<Position> getPointSet() {
         return pointSet;
     }
     
@@ -45,32 +45,32 @@ public class Point {
                 case "U":
                     for (int i = 0; i < distance; i++) {
                         y += 1;
-                        putPointsToCollection(new Point(x, y));
+                        putPointsToCollection(new Position(x, y));
                     }
                     break;
                 case "D":
                     for (int i = 0; i < distance; i++) {
                         y -= 1;
-                        putPointsToCollection(new Point(x, y));
+                        putPointsToCollection(new Position(x, y));
                     }
                     break;
                 case "L":
                     for (int i = 0; i < distance; i++) {
                         x -= 1;
-                        putPointsToCollection(new Point(x, y));
+                        putPointsToCollection(new Position(x, y));
                     }
                     break;
                 case "R":
                     for (int i = 0; i < distance; i++) {
                         x += 1;
-                        putPointsToCollection(new Point(x, y));
+                        putPointsToCollection(new Position(x, y));
                     }
                     break;
             }
         }
     }
     
-    private void putPointsToCollection(Point p) {
+    private void putPointsToCollection(Position p) {
         steps++;
         pointSet.add(p);
         if (!map.containsKey(p)) {
@@ -82,7 +82,7 @@ public class Point {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Point point = (Point) o;
+        Position point = (Position) o;
         return x == point.x &&
                 y == point.y;
     }
