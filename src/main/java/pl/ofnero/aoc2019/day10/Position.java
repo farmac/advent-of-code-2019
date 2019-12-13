@@ -31,5 +31,4 @@ public class Position implements Comparable<Position> {
         return (int) (Math.sqrt(Math.pow(x - 22, 2) + Math.pow(y - 19, 2))
                 - Math.sqrt(Math.pow(position.getX() - 22, 2) + Math.pow(position.getY() - 19, 2)));
     }
-    
 }

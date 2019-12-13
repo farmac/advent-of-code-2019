@@ -26,6 +26,20 @@ public class MonitoringStation {
                     continue;
                 }
                 Double slope = Math.toDegrees(Math.atan2(i - y, j - x));
+                trajectories.add(slope);
+            }
+        }
+        return trajectories.size();
+    }
+    
+    public void setupQuarters(int x, int y) {
+        // x = j y = i
+        for (int i = 0; i < mapOfSpace.size(); i++) {
+            for (int j = 0; j < mapOfSpace.get(i).size(); j++) {
+                if (j == x && i == y || mapOfSpace.get(i).get(j) == '.') {
+                    continue;
+                }
+                Double slope = Math.toDegrees(Math.atan2(i - y, j - x));
                 if (slope >= -90 && slope < 0) {
                     if (!firstQuarterPoints.containsKey(slope)) {
                         firstQuarterPoints.put(slope, new LinkedList<>());
@@ -47,10 +61,8 @@ public class MonitoringStation {
                     }
                     fourthQuarterPoints.get(slope).add(new Position(j, i));
                 }
-                trajectories.add(slope);
             }
         }
-        return trajectories.size();
     }
     
     public Integer[] findLocationWithMostAsteroidsDetected() {
@@ -69,83 +81,52 @@ public class MonitoringStation {
         return position;
     }
     
-    /*
-    public int getNumberOfAsteroidsDetectedAtFoundLocation() {
-        Integer[] location = findLocationWithMostAsteroidsDetected();
-        return detectAsteroidsAtGivenPosition(location[0], location[1]);
-    }
     
-    
-     */
-    public void get200thAsteroidToBeVaporized() {
+    public int get200thAsteroidToBeVaporized() {
         List<Position> positionList = new ArrayList<>();
+        setupQuarters(22, 19);
         sortLists();
-        System.out.println(firstQuarterPoints);
-        System.out.println();
-        System.out.println();
-        System.out.println(secondQuarterPoints);
-        System.out.println();
-        System.out.println();
-        System.out.println(thirdQuarterPoints);
-        System.out.println();
-        System.out.println();
-        System.out.println(fourthQuarterPoints);
         int i = 0;
         while (i < 200) {
             for (Double trajectory : firstQuarterPoints.keySet()) {
-                if(i == 200) break;
                 if(firstQuarterPoints.get(trajectory).size() == 0) {
                     continue;
                 }
                 Position pos = firstQuarterPoints.get(trajectory).get(0);
-                System.out.println(pos);
                 positionList.add(pos);
                 firstQuarterPoints.get(trajectory).remove(pos);
                 i++;
                 
             }
             for (Double trajectory : fourthQuarterPoints.keySet()) {
-                if(i == 200) break;
                 if(fourthQuarterPoints.get(trajectory).size() == 0) {
                     continue;
                 }
                 Position pos = fourthQuarterPoints.get(trajectory).get(0);
-                System.out.println(pos);
                 positionList.add(pos);
                 fourthQuarterPoints.get(trajectory).remove(pos);
                 i++;
-                
-    
-    
             }
             for (Double trajectory : thirdQuarterPoints.keySet()) {
-                if(i == 200) break;
                 if(thirdQuarterPoints.get(trajectory).size() == 0) {
                     continue;
                 }
                 Position pos = thirdQuarterPoints.get(trajectory).get(0);
-                System.out.println(pos);
                 positionList.add(pos);
                 thirdQuarterPoints.get(trajectory).remove(pos);
                 i++;
-    
             }
             for (Double trajectory : secondQuarterPoints.keySet()) {
-                if(i == 200) break;
-    
                 if(secondQuarterPoints.get(trajectory).size() == 0) {
                     continue;
                 }
                 Position pos = secondQuarterPoints.get(trajectory).get(0);
-                System.out.println(pos);
                 positionList.add(pos);
                 secondQuarterPoints.get(trajectory).remove(pos);
                 i++;
-    
-    
             }
         }
-       // System.out.println(positionList.get(199));
+       return positionList.get(198).getX() * 100 + positionList.get(198).getY();
     }
     
     private void sortLists() {
