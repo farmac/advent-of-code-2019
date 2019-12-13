@@ -4,6 +4,8 @@ import java.util.*;
 
 public class MonitoringStation {
     private List<List<Character>> mapOfSpace;
+    private int x;
+    private int y;
     
     private Map<Double, List<Position>> firstQuarterPoints = new TreeMap<>();
     private Map<Double, List<Position>> secondQuarterPoints = new TreeMap<>();
@@ -12,6 +14,38 @@ public class MonitoringStation {
     
     public MonitoringStation(List<List<Character>> mapOfSpace) {
         this.mapOfSpace = mapOfSpace;
+    }
+    
+    private class Position implements Comparable<Position> {
+        private int x2;
+        private int y2;
+        
+        public Position(int x2, int y2) {
+            this.x2 = x2;
+            this.y2 = y2;
+        }
+        
+        public int getX() {
+            return x2;
+        }
+        
+        public int getY() {
+            return y2;
+        }
+        
+        @Override
+        public String toString() {
+            return "Position{" +
+                    "x=" + x2 +
+                    ", y=" + y2 +
+                    '}';
+        }
+        
+        @Override
+        public int compareTo(Position position) {
+            return (int) (Math.sqrt(Math.pow(x2 - x, 2) + Math.pow(y2 - y, 2))
+                    - Math.sqrt(Math.pow(position.getX() - x, 2) + Math.pow(position.getY() - y, 2)));
+        }
     }
     
     public int detectAsteroidsAtGivenPosition(int x, int y) {
@@ -32,7 +66,7 @@ public class MonitoringStation {
         return trajectories.size();
     }
     
-    public void setupQuarters(int x, int y) {
+    public void setupQuarters() {
         // x = j y = i
         for (int i = 0; i < mapOfSpace.size(); i++) {
             for (int j = 0; j < mapOfSpace.get(i).size(); j++) {
@@ -75,6 +109,8 @@ public class MonitoringStation {
                     position[0] = x;
                     position[1] = y;
                     detectedAsteroids = temp;
+                    this.x = x;
+                    this.y = y;
                 }
             }
         }
@@ -83,18 +119,19 @@ public class MonitoringStation {
     
     
     public int get200thAsteroidToBeVaporized() {
-        List<Position> positionList = new ArrayList<>();
-        setupQuarters(22, 19);
+        setupQuarters();
         sortLists();
-        int i = 0;
-        while (i < 200) {
+        int i = 2;
+        while (i <= 200) {
             for (Double trajectory : firstQuarterPoints.keySet()) {
                 if(firstQuarterPoints.get(trajectory).size() == 0) {
                     continue;
                 }
                 Position pos = firstQuarterPoints.get(trajectory).get(0);
-                positionList.add(pos);
                 firstQuarterPoints.get(trajectory).remove(pos);
+                if(i == 200) {
+                    return pos.getX() * 100 + pos.getY();
+                }
                 i++;
                 
             }
@@ -103,8 +140,10 @@ public class MonitoringStation {
                     continue;
                 }
                 Position pos = fourthQuarterPoints.get(trajectory).get(0);
-                positionList.add(pos);
                 fourthQuarterPoints.get(trajectory).remove(pos);
+                if(i == 200) {
+                    return pos.getX() * 100 + pos.getY();
+                }
                 i++;
             }
             for (Double trajectory : thirdQuarterPoints.keySet()) {
@@ -112,8 +151,10 @@ public class MonitoringStation {
                     continue;
                 }
                 Position pos = thirdQuarterPoints.get(trajectory).get(0);
-                positionList.add(pos);
                 thirdQuarterPoints.get(trajectory).remove(pos);
+                if(i == 200) {
+                    return pos.getX() * 100 + pos.getY();
+                }
                 i++;
             }
             for (Double trajectory : secondQuarterPoints.keySet()) {
@@ -121,12 +162,14 @@ public class MonitoringStation {
                     continue;
                 }
                 Position pos = secondQuarterPoints.get(trajectory).get(0);
-                positionList.add(pos);
                 secondQuarterPoints.get(trajectory).remove(pos);
+                if(i == 200) {
+                    return pos.getX() * 100 + pos.getY();
+                }
                 i++;
             }
         }
-       return positionList.get(198).getX() * 100 + positionList.get(198).getY();
+        return 0;
     }
     
     private void sortLists() {
