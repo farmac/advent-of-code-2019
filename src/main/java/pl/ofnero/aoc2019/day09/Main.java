@@ -34,4 +34,5 @@ public class Main {
                 .mapToLong(Long::parseLong)
                 .toArray();
     }
+    
 }
