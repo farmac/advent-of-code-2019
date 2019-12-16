@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class Robot {
     private Computer computer;
-    private int[][] grid = new int[200][200];
+    private int[][] grid = new int[120][120];
     
     public Robot(long[] program) {
         computer = new Computer(program);
@@ -41,33 +41,61 @@ public class Robot {
         paintGrid(locations);
         return locations.size();
     }
-    
     private void paintGrid(Set<Location> locations) {
         int[] temp;
-        int x = 100;
-        int y = 100;
+        int x = 60;
+        int y = 50;
         int direction = 3;
         // 1 - facing left
         // 2 - facing down
         // 3 - facing up
         // 4 - facing right
         while (true) {
-            int input = grid[x][y] == 0 ? 0 : 1;
+            int input = grid[y][x] == 0 ? 0 : 1;
             temp = computer.process(input);
-            if(temp == null) {
+            if (temp == null) {
                 break;
             }
-            locations.add(new Location(x, y));
-            grid[x][y] = temp[0];
+            locations.add(new Location(y, x));
+            grid[y][x] = temp[0];
             direction = getNextDirection(direction, temp[1]);
             if (direction == 1) {
-                y -= 1;
+                x--;
             } else if (direction == 2) {
-                x += 1;
+                y++;
             } else if (direction == 3) {
-                x -= 1;
+                y--;
             } else if (direction == 4) {
-                y += 1;
+                x++;
+            }
+        }
+    }
+    private void paintGrid2() {
+        int[] temp;
+        int x = 60;
+        int y = 50;
+        int direction = 3;
+        // 1 - facing left
+        // 2 - facing down
+        // 3 - facing up
+        // 4 - facing right
+        grid[y][x] = 1;
+        while (true) {
+            int input = grid[y][x] == 0 ? 0 : 1;
+            temp = computer.process(input);
+            if (temp == null) {
+                break;
+            }
+            grid[y][x] = temp[0];
+            direction = getNextDirection(direction, temp[1]);
+            if (direction == 1) {
+                x--;
+            } else if (direction == 2) {
+                y++;
+            } else if (direction == 3) {
+                y--;
+            } else if (direction == 4) {
+                x++;
             }
         }
     }
@@ -87,4 +115,14 @@ public class Robot {
         return nextDirection;
     }
     
+    public void printGrid() {
+        paintGrid2();
+        for (int[] ints : grid) {
+            for (int anInt : ints) {
+                char c = anInt == 0  ? ' ' : '\u25A0';
+                System.out.print(c);
+            }
+            System.out.println();
+        }
+    }
 }

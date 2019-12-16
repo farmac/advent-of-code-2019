@@ -9,11 +9,22 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         long[] code = getDiagnosticProgram("./inputs/day11input.txt");
-        long[] diagnosticProgram = new long[2000];
+        //First part
+        long[] diagnosticProgram1 = new long[1500];
+        Arrays.fill(diagnosticProgram1, 0);
+        System.arraycopy(code, 0, diagnosticProgram1, 0, code.length);
+        Robot robot1 = new Robot(diagnosticProgram1);
+        System.out.println(robot1.countPaintedPanels());
+        
+        //Second part
+        long[] diagnosticProgram = new long[1000];
         Arrays.fill(diagnosticProgram, 0);
         System.arraycopy(code, 0, diagnosticProgram, 0, code.length);
         Robot robot = new Robot(diagnosticProgram);
-        System.out.println(robot.countPaintedPanels());
+        robot.printGrid();
+        
+        
+        
     }
     
     public static long[] getDiagnosticProgram(String fileName) {
