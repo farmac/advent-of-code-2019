@@ -1,5 +1,6 @@
 package pl.farmac.aoc2019.day12;
 
+
 public class Moon {
     private int posX;
     private int posY;
@@ -12,6 +13,18 @@ public class Moon {
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
+    }
+    
+    public int getVelX() {
+        return velX;
+    }
+    
+    public int getVelY() {
+        return velY;
+    }
+    
+    public int getVelZ() {
+        return velZ;
     }
     
     public void incVelX() {

@@ -12,14 +12,16 @@ public class Main {
     private static final String FILE_NAME = "./inputs/day12input.txt";
     
     public static void main(String[] args) {
-        Moon[] moons = parseInput();
-        MotionSimulator motionSimulator = new MotionSimulator(moons);
+        MotionSimulator motionSimulator = new MotionSimulator(parseInput());
         motionSimulator.simulateMotion(1000);
         System.out.println(motionSimulator.getTotalEnergy());
+
+        MotionSimulator motionSimulator1 = new MotionSimulator(parseInput());
+        System.out.println(motionSimulator1.findNumberOfStepsUntilAllMoonsAreInTheSamePositionAgain());
         
     }
     
-    private static Moon[] parseInput() {
+    public static Moon[] parseInput() {
         Moon[] moons = new Moon[4];
         int i = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(FILE_NAME))) {
